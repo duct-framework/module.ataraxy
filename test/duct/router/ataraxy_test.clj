@@ -1,7 +1,18 @@
 (ns duct.router.ataraxy-test
   (:require [clojure.test :refer :all]
-            [duct.router.ataraxy :refer :all]))
+            [duct.router.ataraxy :as ataraxy]
+            [integrant.core :as ig]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(defn hello-handler [{[_ name] :ataraxy/result}]
+  {:status 200, :headers {}, :body (str "Hello " name)})
+
+(def config
+  {:duct.router/ataraxy
+   {:routes    '{[:get "/hello/" name] [:hello name]}
+    :endpoints {:hello hello-handler
+                :ataraxy/not-found (constantly nil)}}})
+
+(deftest router-test
+  (let [handler (:duct.router/ataraxy (ig/init config))]
+    (is (= (handler {:request-method :get, :uri "/hello/world"})
+           {:status 200, :headers {}, :body "Hello world"}))))

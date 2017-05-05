@@ -1,6 +1,8 @@
-(ns duct.router.ataraxy)
+(ns duct.router.ataraxy
+  (:require [ataraxy.core :as ataraxy]
+            [integrant.core :as ig]))
 
-(defn foo
-  "I don't do a whole lot."
-  [x]
-  (println x "Hello, World!"))
+(derive :duct.router/ataraxy :duct/router)
+
+(defmethod ig/init-key :duct.router/ataraxy [_ {:keys [routes endpoints]}]
+  (ataraxy/handler routes endpoints))
