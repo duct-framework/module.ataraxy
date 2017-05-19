@@ -8,9 +8,8 @@
 
 (def config
   {:duct.router/ataraxy
-   {:routes    '{[:get "/hello/" name] [:hello name]}
-    :endpoints {:hello hello-handler
-                :ataraxy/not-found (constantly nil)}}})
+   {:routes   '{[:get "/hello/" name] [:hello name]}
+    :handlers {:hello hello-handler}}})
 
 (deftest router-test
   (let [handler (:duct.router/ataraxy (ig/init config))]
