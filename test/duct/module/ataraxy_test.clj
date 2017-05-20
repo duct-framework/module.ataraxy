@@ -22,7 +22,9 @@
 (deftest module-test
   (is (= (duct/prep config)
          (merge config
-                {:duct.router/ataraxy
+                {:duct.core/handler
+                 {:router (ig/ref :duct.router/ataraxy)}
+                 :duct.router/ataraxy
                  {:routes
                   '{["/bar" id] ^:quz [:bar id], ["/baz"] [:test/baz]}
                   :handlers
