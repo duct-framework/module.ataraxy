@@ -1,5 +1,7 @@
 # Duct module.ataraxy
 
+[![Build Status](https://travis-ci.org/duct-framework/module.ataraxy.svg?branch=master)](https://travis-ci.org/duct-framework/module.ataraxy)
+
 A [Duct][] module that sets [Ataraxy][] as the router for your
 application.
 
