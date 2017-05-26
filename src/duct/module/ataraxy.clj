@@ -1,6 +1,6 @@
 (ns duct.module.ataraxy
   (:require [ataraxy.core :as ataraxy]
-            [ataraxy.response :as resp]
+            [ataraxy.error :as err]
             [duct.core :as duct]
             [duct.core.merge :as merge]
             [duct.router.ataraxy :as router]
@@ -26,10 +26,11 @@
   (infer-keys (middleware-keys routes) (str project-ns ".middleware")))
 
 (def ^:private default-handlers
-  {::resp/bad-request           (ig/ref :duct.handler.error/bad-request)
-   ::resp/not-found             (ig/ref :duct.handler.error/not-found)
-   ::resp/method-not-allowed    (ig/ref :duct.handler.error/method-not-allowed)
-   ::resp/internal-server-error (ig/ref :duct.handler.error/internal-error)})
+  {::err/unmatched-path   (ig/ref :duct.handler.error/not-found)
+   ::err/unmatched-method (ig/ref :duct.handler.error/method-not-allowed)
+   ::err/missing-params   (ig/ref :duct.handler.error/bad-request)
+   ::err/missing-destruct (ig/ref :duct.handler.error/bad-request)
+   ::err/failed-coercions (ig/ref :duct.handler.error/bad-request)})
 
 (defmethod ig/init-key :duct.module/ataraxy [_ routes]
   {:req #{:duct.core/project-ns

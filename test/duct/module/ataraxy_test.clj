@@ -30,13 +30,15 @@
                   :handlers
                   {:bar      (ig/ref :foo.handler/bar)
                    :test/baz (ig/ref :foo.handler.test/baz)
-                   :ataraxy.response/not-found
+                   :ataraxy.error/unmatched-path
                    (ig/ref :duct.handler.error/not-found)
-                   :ataraxy.response/method-not-allowed
+                   :ataraxy.error/unmatched-method
                    (ig/ref :duct.handler.error/method-not-allowed)
-                   :ataraxy.response/bad-request
+                   :ataraxy.error/missing-params
                    (ig/ref :duct.handler.error/bad-request)
-                   :ataraxy.response/internal-server-error
-                   (ig/ref :duct.handler.error/internal-error)}
+                   :ataraxy.error/missing-destruct
+                   (ig/ref :duct.handler.error/bad-request)
+                   :ataraxy.error/failed-coercions
+                   (ig/ref :duct.handler.error/bad-request)}
                   :middleware
                   {:quz (ig/ref :foo.middleware/quz)}}}))))
