@@ -70,7 +70,7 @@ key from `:duct.core/handler`:
  :duct.router/ataraxy
  {:routes     {"/" ^:example [:index]}
   :handlers   {:index   #ig/ref :foo.handler/index}
-  :middleware {:example #ig/ref :foo.middleware/example}
+  :middleware {:example #ig/ref :foo.middleware/example}}
  :foo.handler/index      {}
  :foo.middleware/example {}}
 ```
@@ -80,7 +80,7 @@ You can also start with the module, and override parts as necessary:
 ```edn
 {:duct.core/project-ns foo
  :duct.module/ataraxy  {"/" [:index]}
- :duct.router/ataraxy  {:handlers {:index #ig/ref :foo.handler/custom
+ :duct.router/ataraxy  {:handlers {:index #ig/ref :foo.handler/custom}}
  :foo.handler/custom   {}}
 ```
 
