@@ -15,9 +15,9 @@
    :duct.module/ataraxy  '{["/bar" id] ^:quz [:bar id], ["/baz"] [:test/baz]}
    :foo.handler/bar      bar-handler
    :foo.middlware/quz    wrap-quz
-   :duct.handler.error/not-found          {:response "Not Found"}
-   :duct.handler.error/method-not-allowed {:response "Method Not Allowed"}
-   :duct.handler.error/bad-request        {:response "Bad Request"}})
+   :duct.handler.static/not-found          {:status 404, :body "Not Found"}
+   :duct.handler.static/method-not-allowed {:status 405, :body "Method Not Allowed"}
+   :duct.handler.static/bad-request        {:status 400, :body "Bad Request"}})
 
 (deftest module-test
   (is (= (duct/prep config)
@@ -31,14 +31,14 @@
                   {:bar      (ig/ref :foo.handler/bar)
                    :test/baz (ig/ref :foo.handler.test/baz)
                    :ataraxy.error/unmatched-path
-                   (ig/ref :duct.handler.error/not-found)
+                   (ig/ref :duct.handler.static/not-found)
                    :ataraxy.error/unmatched-method
-                   (ig/ref :duct.handler.error/method-not-allowed)
+                   (ig/ref :duct.handler.static/method-not-allowed)
                    :ataraxy.error/missing-params
-                   (ig/ref :duct.handler.error/bad-request)
+                   (ig/ref :duct.handler.static/bad-request)
                    :ataraxy.error/missing-destruct
-                   (ig/ref :duct.handler.error/bad-request)
+                   (ig/ref :duct.handler.static/bad-request)
                    :ataraxy.error/failed-coercions
-                   (ig/ref :duct.handler.error/bad-request)}
+                   (ig/ref :duct.handler.static/bad-request)}
                   :middleware
                   {:quz (ig/ref :foo.middleware/quz)}}}))))

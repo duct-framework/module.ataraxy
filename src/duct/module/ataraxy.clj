@@ -26,17 +26,17 @@
   (infer-keys (middleware-keys routes) (str project-ns ".middleware")))
 
 (def ^:private default-handlers
-  {::err/unmatched-path   (ig/ref :duct.handler.error/not-found)
-   ::err/unmatched-method (ig/ref :duct.handler.error/method-not-allowed)
-   ::err/missing-params   (ig/ref :duct.handler.error/bad-request)
-   ::err/missing-destruct (ig/ref :duct.handler.error/bad-request)
-   ::err/failed-coercions (ig/ref :duct.handler.error/bad-request)})
+  {::err/unmatched-path   (ig/ref :duct.handler.static/not-found)
+   ::err/unmatched-method (ig/ref :duct.handler.static/method-not-allowed)
+   ::err/missing-params   (ig/ref :duct.handler.static/bad-request)
+   ::err/missing-destruct (ig/ref :duct.handler.static/bad-request)
+   ::err/failed-coercions (ig/ref :duct.handler.static/bad-request)})
 
 (defmethod ig/init-key :duct.module/ataraxy [_ routes]
   {:req #{:duct.core/project-ns
-          :duct.handler.error/bad-request
-          :duct.handler.error/not-found
-          :duct.handler.error/method-not-allowed}
+          :duct.handler.static/bad-request
+          :duct.handler.static/not-found
+          :duct.handler.static/method-not-allowed}
    :fn  (fn [config]
           (let [project-ns (:duct.core/project-ns config)
                 handlers   (infer-handlers routes project-ns)
