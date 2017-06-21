@@ -14,7 +14,13 @@
            (name kw)))
 
 (defn- infer-keys [keys prefix]
-  (into {} (for [k keys] [k (ig/ref (add-ns-prefix k prefix))])))
+  (->>
+   (for [k keys
+         :let [k'(if (namespace k)
+                   k
+                   (add-ns-prefix k prefix))]]
+     [k (ig/ref k')])
+   (into {})))
 
 (defn- infer-handlers [routes project-ns]
   (infer-keys (ataraxy/result-keys routes) (str project-ns ".handler")))
