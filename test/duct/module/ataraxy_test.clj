@@ -20,25 +20,53 @@
    :duct.handler.static/bad-request        {:status 400, :body "Bad Request"}})
 
 (deftest module-test
-  (is (= (duct/prep config)
-         (merge config
-                {:duct.core/handler
-                 {:router (ig/ref :duct.router/ataraxy)}
-                 :duct.router/ataraxy
-                 {:routes
-                  '{["/bar" id] ^:quz [:bar id], ["/baz"] [:test/baz]}
-                  :handlers
-                  {:bar      (ig/ref :foo.handler/bar)
-                   :test/baz (ig/ref :foo.handler.test/baz)
-                   :ataraxy.error/unmatched-path
-                   (ig/ref :duct.handler.static/not-found)
-                   :ataraxy.error/unmatched-method
-                   (ig/ref :duct.handler.static/method-not-allowed)
-                   :ataraxy.error/missing-params
-                   (ig/ref :duct.handler.static/bad-request)
-                   :ataraxy.error/missing-destruct
-                   (ig/ref :duct.handler.static/bad-request)
-                   :ataraxy.error/failed-coercions
-                   (ig/ref :duct.handler.static/bad-request)}
-                  :middleware
-                  {:quz (ig/ref :foo.middleware/quz)}}}))))
+  (testing "basic config"
+    (is (= (duct/prep config)
+           (merge config
+                  {:duct.core/handler
+                   {:router (ig/ref :duct.router/ataraxy)}
+                   :duct.router/ataraxy
+                   {:routes
+                    '{["/bar" id] ^:quz [:bar id], ["/baz"] [:test/baz]}
+                    :handlers
+                    {:bar      (ig/ref :foo.handler/bar)
+                     :test/baz (ig/ref :foo.handler.test/baz)
+                     :ataraxy.error/unmatched-path
+                     (ig/ref :duct.handler.static/not-found)
+                     :ataraxy.error/unmatched-method
+                     (ig/ref :duct.handler.static/method-not-allowed)
+                     :ataraxy.error/missing-params
+                     (ig/ref :duct.handler.static/bad-request)
+                     :ataraxy.error/missing-destruct
+                     (ig/ref :duct.handler.static/bad-request)
+                     :ataraxy.error/failed-coercions
+                     (ig/ref :duct.handler.static/bad-request)}
+                    :middleware
+                    {:quz (ig/ref :foo.middleware/quz)}}}))))
+
+  (testing "updated handlers"
+    (is (= (duct/prep (-> config
+                          (assoc-in
+                           [:duct.router/ataraxy :handlers :ataraxy.error/unmatched-path]
+                           (ig/ref :foo.handler/not-found))))
+           (merge config
+                  {:duct.core/handler
+                   {:router (ig/ref :duct.router/ataraxy)}
+                   :duct.router/ataraxy
+                   {:routes
+                    '{["/bar" id] ^:quz [:bar id], ["/baz"] [:test/baz]}
+                    :handlers
+                    {:bar      (ig/ref :foo.handler/bar)
+                     :test/baz (ig/ref :foo.handler.test/baz)
+                     :ataraxy.error/unmatched-path
+                     (ig/ref :foo.handler/not-found)
+                     :ataraxy.error/unmatched-method
+                     (ig/ref :duct.handler.static/method-not-allowed)
+                     :ataraxy.error/missing-params
+                     (ig/ref :duct.handler.static/bad-request)
+                     :ataraxy.error/missing-destruct
+                     (ig/ref :duct.handler.static/bad-request)
+                     :ataraxy.error/failed-coercions
+                     (ig/ref :duct.handler.static/bad-request)}
+                    :middleware
+                    {:quz (ig/ref :foo.middleware/quz)}}})))))

@@ -46,6 +46,6 @@
              {:duct.core/handler
               {:router (ig/ref :duct.router/ataraxy)}
               :duct.router/ataraxy
-              {:routes     (merge/displace routes)
-               :handlers   (merge/displace (merge default-handlers handlers))
-               :middleware (merge/displace middleware)}})))})
+              {:routes     (with-meta routes {:demote true})
+               :handlers   (with-meta (merge default-handlers handlers) {:demote true})
+               :middleware (with-meta middleware {:demote true})}})))})
