@@ -40,6 +40,8 @@
                      :ataraxy.error/missing-destruct
                      (ig/ref :duct.handler.static/bad-request)
                      :ataraxy.error/failed-coercions
+                     (ig/ref :duct.handler.static/bad-request)
+                     :ataraxy.error/failed-spec
                      (ig/ref :duct.handler.static/bad-request)}
                     :middleware
                     {:quz (ig/ref :foo.middleware/quz)}}}))))
@@ -67,6 +69,8 @@
                      :ataraxy.error/missing-destruct
                      (ig/ref :duct.handler.static/bad-request)
                      :ataraxy.error/failed-coercions
+                     (ig/ref :duct.handler.static/bad-request)
+                     :ataraxy.error/failed-spec
                      (ig/ref :duct.handler.static/bad-request)}
                     :middleware
                     {:quz (ig/ref :foo.middleware/quz)}}})))))

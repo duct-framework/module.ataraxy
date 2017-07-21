@@ -30,7 +30,8 @@
    ::err/unmatched-method (ig/ref :duct.handler.static/method-not-allowed)
    ::err/missing-params   (ig/ref :duct.handler.static/bad-request)
    ::err/missing-destruct (ig/ref :duct.handler.static/bad-request)
-   ::err/failed-coercions (ig/ref :duct.handler.static/bad-request)})
+   ::err/failed-coercions (ig/ref :duct.handler.static/bad-request)
+   ::err/failed-spec      (ig/ref :duct.handler.static/bad-request)})
 
 (defmethod ig/init-key :duct.module/ataraxy [_ routes]
   {:req #{:duct.core/project-ns
