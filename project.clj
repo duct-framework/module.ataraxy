@@ -5,6 +5,6 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.9.0-alpha17"]
                  [ataraxy "0.4.0"]
-                 [duct/core "0.5.1"]
-                 [integrant "0.4.1"]
+                 [duct/core "0.6.0"]
+                 [integrant "0.6.1"]
                  [medley "1.0.0"]])

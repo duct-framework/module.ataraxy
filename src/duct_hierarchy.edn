@@ -1,0 +1,2 @@
+{:duct.router/ataraxy [:duct/router]
+ :duct.module/ataraxy [:duct/module]}

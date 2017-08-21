@@ -1,13 +1,8 @@
 (ns duct.module.ataraxy
   (:require [ataraxy.core :as ataraxy]
-            [ataraxy.error :as err]
             [duct.core :as duct]
             [duct.core.merge :as merge]
-            [duct.router.ataraxy :as router]
-            [integrant.core :as ig]
-            [medley.core :as m]))
-
-(derive :duct.module/ataraxy :duct/module)
+            [integrant.core :as ig]))
 
 (defn- add-ns-prefix [kw prefix]
   (keyword (str prefix (if-let [ns (namespace kw)] (str "." ns)))
@@ -26,12 +21,12 @@
   (infer-keys (middleware-keys routes) (str project-ns ".middleware")))
 
 (def ^:private default-handlers
-  {::err/unmatched-path   (ig/ref :duct.handler.static/not-found)
-   ::err/unmatched-method (ig/ref :duct.handler.static/method-not-allowed)
-   ::err/missing-params   (ig/ref :duct.handler.static/bad-request)
-   ::err/missing-destruct (ig/ref :duct.handler.static/bad-request)
-   ::err/failed-coercions (ig/ref :duct.handler.static/bad-request)
-   ::err/failed-spec      (ig/ref :duct.handler.static/bad-request)})
+  {:ataraxy.error/unmatched-path   (ig/ref :duct.handler.static/not-found)
+   :ataraxy.error/unmatched-method (ig/ref :duct.handler.static/method-not-allowed)
+   :ataraxy.error/missing-params   (ig/ref :duct.handler.static/bad-request)
+   :ataraxy.error/missing-destruct (ig/ref :duct.handler.static/bad-request)
+   :ataraxy.error/failed-coercions (ig/ref :duct.handler.static/bad-request)
+   :ataraxy.error/failed-spec      (ig/ref :duct.handler.static/bad-request)})
 
 (defmethod ig/init-key :duct.module/ataraxy [_ routes]
   {:req #{:duct.core/project-ns

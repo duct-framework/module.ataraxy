@@ -4,6 +4,8 @@
             [duct.module.ataraxy :as ataraxy]
             [integrant.core :as ig]))
 
+(duct/load-hierarchy)
+
 (defn bar-handler [{[_ id] :ataraxy/result}]
   {:status 200, :headers {}, :body (str "bar " id)})
 
