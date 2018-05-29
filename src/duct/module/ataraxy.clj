@@ -29,19 +29,16 @@
    :ataraxy.error/failed-spec      (ig/ref :duct.handler.static/bad-request)})
 
 (defmethod ig/init-key :duct.module/ataraxy [_ routes]
-  {:req #{:duct.core/project-ns
-          :duct.handler.static/bad-request
-          :duct.handler.static/not-found
-          :duct.handler.static/method-not-allowed}
-   :fn  (fn [config]
-          (let [project-ns (:duct.core/project-ns config)
-                handlers   (infer-handlers routes project-ns)
-                middleware (infer-middleware routes project-ns)]
-            (duct/merge-configs
-             config
-             {:duct.core/handler
-              {:router (ig/ref :duct.router/ataraxy)}
-              :duct.router/ataraxy
-              {:routes     (with-meta routes {:demote true})
-               :handlers   (with-meta (merge default-handlers handlers) {:demote true})
-               :middleware (with-meta middleware {:demote true})}})))})
+  (fn [config]
+    (let [project-ns (:duct.core/project-ns config)
+          routes     (dissoc routes ::duct/requires)
+          handlers   (infer-handlers routes project-ns)
+          middleware (infer-middleware routes project-ns)]
+      (duct/merge-configs
+       config
+       {:duct.core/handler
+        {:router (ig/ref :duct.router/ataraxy)}
+        :duct.router/ataraxy
+        {:routes     (with-meta routes {:demote true})
+         :handlers   (with-meta (merge default-handlers handlers) {:demote true})
+         :middleware (with-meta middleware {:demote true})}}))))
