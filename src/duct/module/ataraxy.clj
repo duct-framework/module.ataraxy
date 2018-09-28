@@ -20,14 +20,6 @@
 (defn- infer-middleware [routes project-ns]
   (infer-keys (middleware-keys routes) (str project-ns ".middleware")))
 
-(def ^:private default-handlers
-  {:ataraxy.error/unmatched-path   (ig/ref :duct.handler.static/not-found)
-   :ataraxy.error/unmatched-method (ig/ref :duct.handler.static/method-not-allowed)
-   :ataraxy.error/missing-params   (ig/ref :duct.handler.static/bad-request)
-   :ataraxy.error/missing-destruct (ig/ref :duct.handler.static/bad-request)
-   :ataraxy.error/failed-coercions (ig/ref :duct.handler.static/bad-request)
-   :ataraxy.error/failed-spec      (ig/ref :duct.handler.static/bad-request)})
-
 (defmethod ig/init-key :duct.module/ataraxy [_ routes]
   (fn [config]
     (let [project-ns (:duct.core/project-ns config)
@@ -40,5 +32,5 @@
         {:router (ig/ref :duct.router/ataraxy)}
         :duct.router/ataraxy
         {:routes     (with-meta routes {:demote true})
-         :handlers   (with-meta (merge default-handlers handlers) {:demote true})
+         :handlers   (with-meta handlers {:demote true})
          :middleware (with-meta middleware {:demote true})}}))))

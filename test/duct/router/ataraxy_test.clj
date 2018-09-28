@@ -26,8 +26,15 @@
       (is (= (ig/prep {:duct.router/ataraxy {:routes routes}})
              {:duct.router/ataraxy
               {:routes   routes
-               :handlers {:foo/bar (ig/ref :foo/bar)
-                          :foo/baz (ig/ref :foo/baz)}}})))
+               :handlers
+               {:foo/bar                        (ig/ref :foo/bar)
+                :foo/baz                        (ig/ref :foo/baz)
+                :ataraxy.error/unmatched-path   (ig/ref :duct.handler.static/not-found)
+                :ataraxy.error/unmatched-method (ig/ref :duct.handler.static/method-not-allowed)
+                :ataraxy.error/missing-params   (ig/ref :duct.handler.static/bad-request)
+                :ataraxy.error/missing-destruct (ig/ref :duct.handler.static/bad-request)
+                :ataraxy.error/failed-coercions (ig/ref :duct.handler.static/bad-request)
+                :ataraxy.error/failed-spec      (ig/ref :duct.handler.static/bad-request)}}})))
 
     (testing "some existing handlers"
       (is (= (ig/prep {:duct.router/ataraxy
@@ -35,8 +42,15 @@
                         :handlers {:foo/bar (ig/ref :foo/custom)}}})
              {:duct.router/ataraxy
               {:routes   routes
-               :handlers {:foo/bar (ig/ref :foo/custom)
-                          :foo/baz (ig/ref :foo/baz)}}})))))
+               :handlers
+               {:foo/bar                        (ig/ref :foo/custom)
+                :foo/baz                        (ig/ref :foo/baz)
+                :ataraxy.error/unmatched-path   (ig/ref :duct.handler.static/not-found)
+                :ataraxy.error/unmatched-method (ig/ref :duct.handler.static/method-not-allowed)
+                :ataraxy.error/missing-params   (ig/ref :duct.handler.static/bad-request)
+                :ataraxy.error/missing-destruct (ig/ref :duct.handler.static/bad-request)
+                :ataraxy.error/failed-coercions (ig/ref :duct.handler.static/bad-request)
+                :ataraxy.error/failed-spec      (ig/ref :duct.handler.static/bad-request)}}})))))
 
 (deftest resource-test
   (let [config   {:duct.router/ataraxy

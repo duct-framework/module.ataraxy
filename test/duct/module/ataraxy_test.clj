@@ -45,19 +45,7 @@
                       ["/baz"]    [:test/baz]}
                     :handlers
                     {:bar      (ig/ref :foo.handler/bar)
-                     :test/baz (ig/ref :foo.handler.test/baz)
-                     :ataraxy.error/unmatched-path
-                     (ig/ref :duct.handler.static/not-found)
-                     :ataraxy.error/unmatched-method
-                     (ig/ref :duct.handler.static/method-not-allowed)
-                     :ataraxy.error/missing-params
-                     (ig/ref :duct.handler.static/bad-request)
-                     :ataraxy.error/missing-destruct
-                     (ig/ref :duct.handler.static/bad-request)
-                     :ataraxy.error/failed-coercions
-                     (ig/ref :duct.handler.static/bad-request)
-                     :ataraxy.error/failed-spec
-                     (ig/ref :duct.handler.static/bad-request)}
+                     :test/baz (ig/ref :foo.handler.test/baz)}
                     :middleware
                     {:quz (ig/ref :foo.middleware/quz)}}})
            (core/build-config basic-config))))
@@ -73,18 +61,7 @@
                     :handlers
                     {:bar      (ig/ref :foo.handler/bar)
                      :test/baz (ig/ref :foo.handler.test/baz)
-                     :ataraxy.error/unmatched-path
-                     (ig/ref :foo.handler/not-found)
-                     :ataraxy.error/unmatched-method
-                     (ig/ref :duct.handler.static/method-not-allowed)
-                     :ataraxy.error/missing-params
-                     (ig/ref :duct.handler.static/bad-request)
-                     :ataraxy.error/missing-destruct
-                     (ig/ref :duct.handler.static/bad-request)
-                     :ataraxy.error/failed-coercions
-                     (ig/ref :duct.handler.static/bad-request)
-                     :ataraxy.error/failed-spec
-                     (ig/ref :duct.handler.static/bad-request)}
+                     :ataraxy.error/unmatched-path (ig/ref :foo.handler/not-found)}
                     :middleware
                     {:quz (ig/ref :foo.middleware/quz)}}})
            (core/build-config updated-handlers-config)))))
