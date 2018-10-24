@@ -28,7 +28,7 @@
           middleware (infer-middleware routes project-ns)]
       (duct/merge-configs
        config
-       {:duct.core/handler
+       {:duct.handler/root
         {:router (ig/ref :duct.router/ataraxy)}
         :duct.router/ataraxy
         {:routes     (with-meta routes {:demote true})
