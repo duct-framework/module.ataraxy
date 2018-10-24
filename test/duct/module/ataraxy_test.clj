@@ -37,7 +37,7 @@
 (deftest module-test
   (testing "basic config"
     (is (= (merge (:duct.profile/base basic-config)
-                  {:duct.core/handler
+                  {:duct.handler/root
                    {:router (ig/ref :duct.router/ataraxy)}
                    :duct.router/ataraxy
                    {:routes
@@ -52,7 +52,7 @@
 
   (testing "updated handlers"
     (is (= (merge (:duct.profile/base updated-handlers-config)
-                  {:duct.core/handler
+                  {:duct.handler/root
                    {:router (ig/ref :duct.router/ataraxy)}
                    :duct.router/ataraxy
                    {:routes
