@@ -12,7 +12,7 @@ application.
 
 To install, add the following to your project `:dependencies`:
 
-    [duct/module.ataraxy "0.2.0"]
+    [duct/module.ataraxy "0.3.0"]
 
 ## Usage
 

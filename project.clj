@@ -1,4 +1,4 @@
-(defproject duct/module.ataraxy "0.3.0-alpha3"
+(defproject duct/module.ataraxy "0.3.0"
   :description "Duct module and router for the Ataraxy routing library"
   :url "https://github.com/duct-framework/module.ataraxy"
   :license {:name "Eclipse Public License"
